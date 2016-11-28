@@ -39,5 +39,8 @@ CONFIG = dict(
 
     # PIN码长度
     PIN_LENGTH=6,
+
+    # PIN码有效期(秒)，None代表无限
+    PIN_MAX_AGE=None,
 )
 

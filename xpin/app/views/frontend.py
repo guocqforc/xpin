@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import hashlib
+import datetime
 import json
 
 from flask import Blueprint
@@ -11,6 +12,7 @@ from flask import request, current_app, g
 from ... import constants
 from ...log import logger
 from ..models import Pin, User
+from ..extensions import db
 
 bp = Blueprint('frontend', __name__)
 
@@ -46,11 +48,14 @@ def unpack_input():
 @bp.route(constants.URL_PIN_CREATE)
 def create_pin():
 
-    username = g.input.get('username')
-    if not username:
-        return jsonify(
-            ret=constants.RET_PARAMS_INVALID
-        )
+    for key in ('username', 'source'):
+        if key not in g.input:
+            return jsonify(
+                ret=constants.RET_PARAMS_INVALID
+            )
+
+    username = g.input['username']
+    source = g.input['source']
 
     user = User.query.filter(User.username == username).first()
 
@@ -59,7 +64,26 @@ def create_pin():
             ret=constants.RET_USER_INVALID,
         )
 
+    old_pins = Pin.query.filter(
+        Pin.user_id == user.id,
+        Pin.source == source,
+    )
+
+    db.session.delete(old_pins)
+    db.session.commit()
+
+    pin = Pin()
+    pin.user_id = user.id
+    pin.source = source
+    pin.code = Pin.create_code(current_app.config['PIN_LENGTH'])
+
+    if current_app.config['PIN_MAX_AGE']:
+        pin.expire_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=current_app.config['PIN_MAX_AGE'])
+
+    db.session.add(pin)
+    db.session.commit()
+
     return jsonify(
         ret=0,
-        pin='ok',
+        pin=pin.code,
     )
