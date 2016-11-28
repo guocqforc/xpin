@@ -103,7 +103,8 @@ def create_pin():
 
     msg_title = current_app.config['MSG_TITLE']
     msg_content = current_app.config['MSG_CONTENT_TPL'].format(
-        username=user.username,
+        username=username,
+        source=source,
         host=request.remote_addr,
         pin=pin.code,
     )
