@@ -15,10 +15,7 @@ def create_app(config, name=None):
     if not name:
         name = __name__
 
-    # 当前文件所在目录的templates
-    template_folder = os.path.join(os.path.dirname(__file__), 'templates')
-
-    app = Flask(name, template_folder=template_folder)
+    app = Flask(name)
 
     app.config.from_mapping(constants.CONFIG)
     app.config.from_pyfile(config)
