@@ -8,6 +8,8 @@ from extensions import db, admin
 import models
 import views.admin
 
+from .. import constants
+
 
 def create_app(config, name=None):
     if not name:
@@ -15,6 +17,7 @@ def create_app(config, name=None):
 
     app = Flask(name)
 
+    app.config.from_mapping(constants.CONFIG)
     app.config.from_object(config)
 
     configure_logging(app)

@@ -25,3 +25,17 @@ RET_USER_INVALID = 1000
 # PIN无效
 RET_USER_PIN_VALID = 2000
 
+
+# 默认app配置
+CONFIG = dict(
+    BLUEPRINTS=(
+        ('views.frontend', ''),
+    ),
+
+    # flask-sqlalchemy
+    SQLALCHEMY_ECHO=False,
+
+    # admin_user
+    SESSION_KEY_ADMIN_USERNAME='admin_username',
+)
+
