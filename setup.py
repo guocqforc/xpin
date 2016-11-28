@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="xpin",
-    version='0.1.21',
+    version='0.1.25',
     zip_safe=False,
     platforms='any',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
