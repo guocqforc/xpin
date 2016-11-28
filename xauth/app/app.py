@@ -32,7 +32,9 @@ def create_app(config, name=None):
 def configure_logging(app):
     import logging.config
 
-    app.logger and logging.config.dictConfig(app.config['LOGGING'])
+    if 'LOGGING' in app.config:
+        # 有可能没配置
+        app.logger and logging.config.dictConfig(app.config['LOGGING'])
 
 
 def configure_extensions(app):
