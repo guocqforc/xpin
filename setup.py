@@ -12,5 +12,5 @@ setup(
     license="BSD",
     author="dantezhu",
     author_email="zny2008@gmail.com",
-    description="supervisor's dog, should deploy with flylog",
+    description="pin create/verify",
 )
