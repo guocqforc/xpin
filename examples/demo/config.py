@@ -9,3 +9,5 @@ SECRET_KEY = 'tmp_secret_key'
 # flask-sqlalchemy
 SQLALCHEMY_DATABASE_URI = 'sqlite:///%s' % os.path.join(BASE_DIR, 'db.sqlite')
 
+
+CLIENT_SECRET = '123'
