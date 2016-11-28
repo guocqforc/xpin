@@ -95,7 +95,7 @@ def create_pin():
     pin_log.username = username
     pin_log.source = source
     pin_log.pin = pin.code
-    pin_log.host = request.remote_addr
+    pin_log.address = request.remote_addr
     pin_log.expire_time = pin.expire_time
 
     db.session.add(pin_log)
@@ -105,7 +105,7 @@ def create_pin():
     msg_content = current_app.config['MSG_CONTENT_TPL'].format(
         username=username,
         source=source,
-        host=request.remote_addr,
+        address=request.remote_addr,
         pin=pin.code,
     )
 

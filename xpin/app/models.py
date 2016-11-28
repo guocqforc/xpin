@@ -109,7 +109,7 @@ class PinLog(db.Model):
     source = db.Column(db.String(255), nullable=False)
     pin = db.Column(db.String(255), nullable=False)
     # 所在的机器
-    host = db.Column(db.String(255))
+    address = db.Column(db.String(255))
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     expire_time = db.Column(db.DateTime)
 

@@ -47,6 +47,6 @@ CONFIG = dict(
     PIN_MAX_AGE=None,
 
     MSG_TITLE='pin code',
-    MSG_CONTENT_TPL='{username}#{source}@{host} is applying for pin. pin is {pin}'
+    MSG_CONTENT_TPL='{username}#{source}@{address} is applying for pin. pin is {pin}'
 )
 
