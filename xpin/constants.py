@@ -42,5 +42,8 @@ CONFIG = dict(
 
     # PIN码有效期(秒)，None代表无限
     PIN_MAX_AGE=None,
+
+    MSG_TITLE='pin code',
+    MSG_CONTENT_TPL='{username}@{host} is applying for pin. pin is {pin}'
 )
 

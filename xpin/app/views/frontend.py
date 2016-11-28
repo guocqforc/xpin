@@ -83,6 +83,18 @@ def create_pin():
     db.session.add(pin)
     db.session.commit()
 
+    msg_title = current_app.config['MSG_TITLE']
+    msg_content = current_app.config['MSG_CONTENT_TPL'].format(
+        username=user.username,
+        host=request.remote_addr,
+        pin=pin.code,
+    )
+
+    g.ding.emit(msg_title, msg_content, user_list=[user.ding_id])
+
+    if g.send_cloud and user.mail:
+        g.send_cloud.emit(msg_title, msg_content, [user.mail])
+
     return jsonify(
         ret=0,
         pin=pin.code,

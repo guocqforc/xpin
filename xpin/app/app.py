@@ -61,7 +61,7 @@ def configure_handlers(app):
     before_request之类的处理
     """
 
-    @app.before_first_request
+    @app.before_request
     def init_libs():
         """
         初始化各种库
