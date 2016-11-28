@@ -6,7 +6,7 @@ setup(
     zip_safe=False,
     platforms='any',
     packages=['xauth'],
-    install_requires=['requests'],
+    install_requires=['requests', 'flask'],
     url="https://github.com/dantezhu/xauth",
     license="BSD",
     author="dantezhu",
