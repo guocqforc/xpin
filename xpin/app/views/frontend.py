@@ -54,7 +54,7 @@ def create_pin():
 
     user = User.query.filter(User.username == username).first()
 
-    if not user:
+    if not user or not user.valid:
         return jsonify(
             ret=constants.RET_USER_INVALID,
         )
