@@ -64,12 +64,12 @@ def create_pin():
             ret=constants.RET_USER_INVALID,
         )
 
-    old_pins = Pin.query.filter(
+    # 删掉旧的
+    Pin.query.filter(
         Pin.user_id == user.id,
         Pin.source == source,
-    )
+    ).delete()
 
-    db.session.delete(old_pins)
     db.session.commit()
 
     pin = Pin()
