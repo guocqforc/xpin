@@ -24,7 +24,7 @@ source = 1
 client_secret = '13'
 base_url = 'http://127.0.0.1:5000/'
 
-client = API(client_secret, 'http://127.0.0.1:5000/')
+client = API(client_secret, base_url)
 
 
 pin = client.create_pin(username, source)
