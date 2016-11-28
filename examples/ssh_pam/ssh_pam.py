@@ -54,8 +54,7 @@ XPIN_BASE_URL = 'http://127.0.0.1:5000/'
 
 XPIN_TIMEOUT = 30
 
-# 不需要做什么区分
-XPIN_SOURCE = 0
+XPIN_SOURCE = 'ssh'
 
 xpin_client = API(XPIN_CLIENT_SECRET, XPIN_BASE_URL, XPIN_TIMEOUT)
 
