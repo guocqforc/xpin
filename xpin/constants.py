@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-NAME = 'xauth'
+NAME = 'xpin'
 
 # URL 定义
 

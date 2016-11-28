@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="xauth",
+    name="xpin",
     version='0.1.21',
     zip_safe=False,
     platforms='any',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-    scripts=['xauth/bin/xauth'],
+    scripts=['xpin/bin/xpin'],
     install_requires=['requests', 'flask', 'flask_sqlalchemy', 'flask_admin', 'passlib'],
-    url="https://github.com/dantezhu/xauth",
+    url="https://github.com/dantezhu/xpin",
     license="BSD",
     author="dantezhu",
     author_email="zny2008@gmail.com",
