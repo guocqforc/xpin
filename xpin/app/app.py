@@ -18,6 +18,9 @@ def create_app(config, name=None):
     app = Flask(name)
 
     app.config.from_mapping(constants.CONFIG)
+
+    # 相对当前工作目录
+    config = os.path.join(os.getcwd(), config)
     app.config.from_pyfile(config)
 
     configure_logging(app)
