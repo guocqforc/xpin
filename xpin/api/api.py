@@ -15,7 +15,7 @@ class API(object):
     base_url = None
     timeout = None
 
-    def __init__(self, secret, base_url, timeout):
+    def __init__(self, secret, base_url, timeout=None):
         self.secret = secret
         self.base_url = base_url
         self.timeout = timeout

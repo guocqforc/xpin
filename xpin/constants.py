@@ -36,5 +36,8 @@ CONFIG = dict(
 
     # admin_user
     SESSION_KEY_ADMIN_USERNAME='admin_username',
+
+    # PIN码长度
+    PIN_LENGTH=6,
 )
 
