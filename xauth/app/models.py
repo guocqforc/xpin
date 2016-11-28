@@ -54,11 +54,8 @@ class AdminUser(db.Model):
             return None
 
 
-class User(UserMixin):
-    __tablename__ = 'user'
+class UserPin(UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    pin = db.Column(db.String(255), unique=True, nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
-    login_time = db.Column(db.DateTime)
-    roles = db.Column(ListType)
