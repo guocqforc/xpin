@@ -2,6 +2,7 @@
 
 import datetime
 import re
+import random
 
 from passlib.hash import sha256_crypt
 from sqlalchemy.types import TypeDecorator, TEXT
@@ -80,6 +81,16 @@ class Pin(db.Model):
     __table_args__ = (
         UniqueConstraint('user_id', 'source', 'pin', name='_user_source_pin'),
     )
+
+    @classmethod
+    def create_code(cls, length):
+        """
+        创建code
+        :return:
+        """
+
+        chars = '0123456789'
+        return ''.join([random.choice(chars) for i in xrange(length)])
 
     def __unicode__(self):
         return u'<%s %s-%s-%s>' % (type(self).__name__, self.user_id, self.source, self.code)
