@@ -54,7 +54,7 @@ class AdminUser(db.Model):
             return None
 
 
-class UserPin(UserMixin):
+class UserPin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
     pin = db.Column(db.String(255), unique=True, nullable=False)
