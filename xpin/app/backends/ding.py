@@ -55,9 +55,9 @@ class DingBackend(object):
 
         return rsp['errcode'] == 0
 
-    def is_valid_user(self, userid):
+    def get_user(self, userid):
         """
-        是否是合法的用户
+        获取用户信息
         :param userid:
         :return:
         """
@@ -66,9 +66,9 @@ class DingBackend(object):
 
         for user in jdata['userlist']:
             if user['userid'] == userid:
-                return True
+                return user
 
-        return False
+        return None
 
     def _get_token(self):
         """

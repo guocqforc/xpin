@@ -66,7 +66,7 @@ def create_pin():
         )
 
     # 判断是否是合法的企业内部用户
-    if not g.ding.is_valid_user(user.ding_id):
+    if not g.ding.get_user(user.ding_id):
         logger.error('invalid ding user. request: %s', request)
         return jsonify(
             ret=constants.RET_USER_INVALID,
