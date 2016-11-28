@@ -28,10 +28,6 @@ RET_USER_PIN_VALID = 2000
 
 # 默认app配置
 CONFIG = dict(
-    BLUEPRINTS=(
-        ('views.frontend', ''),
-    ),
-
     # flask-sqlalchemy
     SQLALCHEMY_ECHO=False,
 

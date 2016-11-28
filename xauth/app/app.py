@@ -64,8 +64,9 @@ def configure_views(app):
     """
     注册views
     """
+    import views.frontend
+
     # 注册 admin views
     views.admin.register_views(app)
 
-    for it in app.config['BLUEPRINTS']:
-        app.register_blueprint(import_module(it[0]).bp, url_prefix=it[1])
+    app.register_blueprint(views.frontend.bp)
