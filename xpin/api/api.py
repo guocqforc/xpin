@@ -29,7 +29,7 @@ class API(object):
         )
 
         try:
-            rsp = requests.get(url, params=self._make_signed_params(data), timeout=self.timeout)
+            rsp = requests.post(url, data=self._make_signed_params(data), timeout=self.timeout)
 
             jdata = rsp.json()
 

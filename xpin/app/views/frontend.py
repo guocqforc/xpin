@@ -45,7 +45,7 @@ def unpack_input():
         )
 
 
-@bp.route(constants.URL_PIN_CREATE)
+@bp.route(constants.URL_PIN_CREATE, methods=['POST'])
 def create_pin():
 
     for key in ('username', 'source'):
@@ -120,7 +120,7 @@ def create_pin():
     )
 
 
-@bp.route(constants.URL_PIN_VERIFY)
+@bp.route(constants.URL_PIN_VERIFY, methods=['POST'])
 def verify_pin():
     """
     验证pin
