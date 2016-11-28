@@ -96,3 +96,19 @@ class Pin(db.Model):
 
     def __unicode__(self):
         return u'<%s %s-%s-%s>' % (type(self).__name__, self.user_id, self.source, self.code)
+
+
+class OPLog(db.Model):
+    """
+    操作日志
+    这里都不用外键，因为关联的外键可能删除，而日志我希望保留
+    """
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255), nullable=False)
+    source = db.Column(db.Integer, nullable=False)
+    pin = db.Column(db.String(255), nullable=False)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+
+    def __unicode__(self):
+        return u'<%s %s-%s-%s>' % (type(self).__name__, self.username, self.source, self.pin)

@@ -11,7 +11,7 @@ from flask import request, current_app, g
 
 from ... import constants
 from ...log import logger
-from ..models import Pin, User
+from ..models import Pin, User, OPLog
 from ..extensions import db
 
 bp = Blueprint('frontend', __name__)
@@ -89,6 +89,14 @@ def create_pin():
         pin.expire_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=current_app.config['PIN_MAX_AGE'])
 
     db.session.add(pin)
+    db.session.commit()
+
+    op_log = OPLog()
+    op_log.username = username
+    op_log.source = source
+    op_log.pin = pin.code
+
+    db.session.add(op_log)
     db.session.commit()
 
     msg_title = current_app.config['MSG_TITLE']
