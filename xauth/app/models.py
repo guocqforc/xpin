@@ -5,7 +5,6 @@ import re
 
 from passlib.hash import sha256_crypt
 from sqlalchemy.types import TypeDecorator, TEXT
-from flask_login import UserMixin
 
 from extensions import db
 
@@ -33,7 +32,7 @@ class AdminUser(db.Model):
     roles = db.Column(ListType)
 
     def __unicode__(self):
-        return u'%s' % self.username
+        return u'<%s %s>' % (type(self).__name__, self.username)
 
     def set_password(self, raw_password):
         """设置密码，要加密"""
@@ -54,8 +53,28 @@ class AdminUser(db.Model):
             return None
 
 
-class UserPin(db.Model):
+class User(db.Model):
+    """
+    用户配置
+    """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
-    pin = db.Column(db.String(255), unique=True, nullable=False)
+    ding_id = db.Column(db.String(255), unique=True, nullable=False)
+    mail = db.Column(db.String(255), unique=True, nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+
+    def __unicode__(self):
+        return u'<%s %s>' % (type(self).__name__, self.username)
+
+
+class UserPin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    source = db.Column(db.Integer, nullable=False)
+    pin = db.Column(db.String(255), nullable=False)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+
+    user = db.relationship('User', backref=db.backref('pins', order_by=db.desc(create_time)))
+
+    def __unicode__(self):
+        return u'<%s %s-%s-%s>' % (type(self).__name__, self.user_id, self.source, self.pin)

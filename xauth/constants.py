@@ -4,14 +4,11 @@ NAME = 'xauth'
 
 # URL 定义
 
-# 验证用户是否有效
-URL_USER_VERIFY = '/user/verify'
+# 生成并发送PIN码
+URL_PIN_CREATE = '/pin/create'
 
-# 发送PIN码
-URL_USER_PIN_SEND = '/user/pin/send'
-
-# 验证用户PIN
-URL_USER_PIN_AUTH = '/user/pin/auth'
+# 验证PIN码
+URL_PIN_VERIFY = '/pin/verify'
 
 
 # 返回码定义
