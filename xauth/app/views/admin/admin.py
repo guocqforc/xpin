@@ -10,8 +10,8 @@ from flask_admin import AdminIndexView, BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_admin import Admin
 
-from extensions import db, admin
-from models import AdminUser, User
+from ...extensions import db, admin
+from ...models import AdminUser, UserPin
 from forms import LoginForm
 
 
@@ -27,7 +27,7 @@ def register_views(app):
 
     # model
     admin.add_view(AdminUserView())
-    admin.add_view(UserView())
+    admin.add_view(UserPinView())
 
     return admin
 
@@ -81,11 +81,10 @@ class AdminUserView(ModelView):
         return g.admin_user
 
 
-class UserView(ModelView):
-    column_exclude_list = ('password',)
+class UserPinView(ModelView):
 
     def __init__(self, *args, **kwargs):
-        super(UserView, self).__init__(User, db.session, *args, **kwargs)
+        super(UserPinView, self).__init__(UserPin, db.session, *args, **kwargs)
 
     def is_accessible(self):
         return g.admin_user
