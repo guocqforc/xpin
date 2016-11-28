@@ -29,7 +29,7 @@ class AdminUser(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     login_time = db.Column(db.DateTime)
     roles = db.Column(ListType)
 
@@ -63,7 +63,7 @@ class User(db.Model):
     username = db.Column(db.String(255), unique=True, nullable=False)
     ding_id = db.Column(db.String(255), nullable=False)
     mail = db.Column(db.String(255), nullable=True)
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     valid = db.Column(db.Boolean, default=True)
 
     def __unicode__(self):
@@ -75,7 +75,7 @@ class Pin(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     source = db.Column(db.String(255), nullable=False)
     code = db.Column(db.String(255), nullable=False)
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     expire_time = db.Column(db.DateTime)
 
     user = db.relationship('User', backref=db.backref('pins', order_by=db.desc(create_time)))
@@ -110,7 +110,7 @@ class PinLog(db.Model):
     pin = db.Column(db.String(255), nullable=False)
     # 所在的机器
     address = db.Column(db.String(255))
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     expire_time = db.Column(db.DateTime)
 
     def __unicode__(self):

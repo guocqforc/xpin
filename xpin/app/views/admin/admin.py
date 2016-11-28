@@ -57,7 +57,7 @@ class AdminAuthView(BaseView):
             session.permanent = True
             session[current_app.config['SESSION_KEY_ADMIN_USERNAME']] = admin_user.username
 
-            admin_user.login_time = datetime.datetime.utcnow()
+            admin_user.login_time = datetime.datetime.now()
             db.session.commit()
 
             if request.args.get('next', None):

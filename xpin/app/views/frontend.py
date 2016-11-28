@@ -6,7 +6,7 @@ import datetime
 import json
 
 from flask import Blueprint
-from flask import render_template, jsonify
+from flask import jsonify
 from flask import request, current_app, g
 
 from ... import constants
@@ -86,7 +86,7 @@ def create_pin():
     pin.code = Pin.create_code(current_app.config['PIN_LENGTH'])
 
     if current_app.config['PIN_MAX_AGE']:
-        pin.expire_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=current_app.config['PIN_MAX_AGE'])
+        pin.expire_time = datetime.datetime.now() + datetime.timedelta(seconds=current_app.config['PIN_MAX_AGE'])
 
     db.session.add(pin)
     db.session.commit()
@@ -156,7 +156,7 @@ def verify_pin():
             ret=constants.RET_PIN_VALID
         )
 
-    if pin.expire_time and pin.expire_time < datetime.datetime.utcnow():
+    if pin.expire_time and pin.expire_time < datetime.datetime.now():
         return jsonify(
             ret=constants.RET_PIN_EXPIRED,
         )
