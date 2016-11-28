@@ -11,14 +11,14 @@ import views.admin
 from .. import constants
 
 
-def create_app(config, name=None):
+def create_app(config_file, name=None):
     if not name:
         name = __name__
 
     app = Flask(name)
 
     app.config.from_mapping(constants.CONFIG)
-    app.config.from_object(config)
+    app.config.from_pyfile(config_file)
 
     configure_logging(app)
     configure_extensions(app)
