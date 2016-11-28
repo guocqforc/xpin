@@ -2,7 +2,7 @@
 
 import os
 from flask import Flask
-from flask import request
+from flask import request, g
 
 from extensions import db, admin
 import models
@@ -60,7 +60,29 @@ def configure_handlers(app):
     """
     before_request之类的处理
     """
-    pass
+
+    @app.before_first_request
+    def init_libs():
+        """
+        初始化各种库
+        """
+        from .backends.ding import DingBackend
+        from .backends.sendcloud import SendCloudBackend
+
+        g.ding = DingBackend(
+            app.config['DING_CORP_ID'],
+            app.config['DING_CORP_SECRET'],
+            app.config['DING_AGENT_ID'],
+        )
+
+        if 'SEND_CLOUD_API_USER' in app.config:
+            g.send_cloud = SendCloudBackend(
+                app.config['SEND_CLOUD_API_USER'],
+                app.config['SEND_CLOUD_API_KEY'],
+                app.config['SEND_CLOUD_SENDER'],
+            )
+        else:
+            g.send_cloud = None
 
 
 def configure_views(app):
