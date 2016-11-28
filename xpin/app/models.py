@@ -64,6 +64,7 @@ class User(db.Model):
     ding_id = db.Column(db.String(255), nullable=False)
     mail = db.Column(db.String(255), nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    valid = db.Column(db.Boolean, default=True)
 
     def __unicode__(self):
         return u'<%s %s>' % (type(self).__name__, self.username)
