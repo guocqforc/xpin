@@ -5,6 +5,7 @@ import re
 
 from passlib.hash import sha256_crypt
 from sqlalchemy.types import TypeDecorator, TEXT
+from sqlalchemy import UniqueConstraint
 
 from extensions import db
 
@@ -59,8 +60,8 @@ class User(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
-    ding_id = db.Column(db.String(255), unique=True, nullable=False)
-    mail = db.Column(db.String(255), unique=True, nullable=True)
+    ding_id = db.Column(db.String(255), nullable=False)
+    mail = db.Column(db.String(255), nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     def __unicode__(self):
@@ -75,6 +76,10 @@ class UserPin(db.Model):
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     user = db.relationship('User', backref=db.backref('pins', order_by=db.desc(create_time)))
+
+    __table_args__ = (
+        UniqueConstraint('user_id', 'source', 'pin', name='_user_source_pin'),
+    )
 
     def __unicode__(self):
         return u'<%s %s-%s-%s>' % (type(self).__name__, self.user_id, self.source, self.pin)
