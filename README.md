@@ -32,9 +32,5 @@ config 需要配置
     // 添加管理员
     xpin -c config.py addadmin admin password
 
-    // gevent 模式
-    xpin -c config.py rungserver
-
-    // 多线程模式
-    xpin -c config.py runserver
-
+    // 多线程模式启动
+    xpin -c config.py runserver --threaded
