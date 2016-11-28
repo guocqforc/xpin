@@ -1,11 +1,11 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="xauth",
     version='0.1.21',
     zip_safe=False,
     platforms='any',
-    packages=['xauth'],
+    packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     scripts=['xauth/bin/xauth'],
     install_requires=['requests', 'flask', 'flask_sqlalchemy', 'flask_admin', 'passlib'],
     url="https://github.com/dantezhu/xauth",
