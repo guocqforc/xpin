@@ -11,7 +11,7 @@ from flask import request, current_app, g
 
 from ... import constants
 from ...log import logger
-from ..models import Pin, User, OPLog
+from ..models import Pin, User, PinLog
 from ..extensions import db
 
 bp = Blueprint('frontend', __name__)
@@ -91,7 +91,7 @@ def create_pin():
     db.session.add(pin)
     db.session.commit()
 
-    op_log = OPLog()
+    op_log = PinLog()
     op_log.username = username
     op_log.source = source
     op_log.pin = pin.code

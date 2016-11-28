@@ -11,7 +11,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin import Admin
 
 from ...extensions import db, admin
-from ...models import AdminUser, User, Pin, OPLog
+from ...models import AdminUser, User, Pin, PinLog
 from forms import LoginForm
 
 
@@ -29,7 +29,7 @@ def register_views(app):
     admin.add_view(AdminUserView())
     admin.add_view(UserView())
     admin.add_view(PinView())
-    admin.add_view(OPLogView())
+    admin.add_view(PinLogView())
 
     return admin
 
@@ -101,10 +101,10 @@ class PinView(ModelView):
         return g.admin_user
 
 
-class OPLogView(ModelView):
+class PinLogView(ModelView):
 
     def __init__(self, *args, **kwargs):
-        super(OPLogView, self).__init__(OPLog, db.session, *args, **kwargs)
+        super(PinLogView, self).__init__(PinLog, db.session, *args, **kwargs)
 
     def is_accessible(self):
         return g.admin_user

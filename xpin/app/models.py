@@ -98,7 +98,7 @@ class Pin(db.Model):
         return u'<%s %s-%s-%s>' % (type(self).__name__, self.user_id, self.source, self.code)
 
 
-class OPLog(db.Model):
+class PinLog(db.Model):
     """
     操作日志
     这里都不用外键，因为关联的外键可能删除，而日志我希望保留
