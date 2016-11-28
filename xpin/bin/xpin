@@ -10,12 +10,13 @@ from flask import render_template_string
 import flask_script
 from flask_script.commands import ShowUrls
 
+import xpin
 from xpin.app.extensions import db
 from xpin.app.models import AdminUser
 from xpin.app.app import create_app
 
 manager = flask_script.Manager(create_app)
-manager.add_option('-c', '--config', dest='config', required=False)
+manager.add_option('-c', '--config', dest='config', required=True)
 
 
 class GServer(flask_script.Command):
@@ -140,6 +141,14 @@ def genkey(length):
     """
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
     print ''.join([random.choice(chars) for i in range(length)])
+
+
+@manager.command
+def version():
+    """
+    版本
+    """
+    print xpin.__version__
 
 
 if __name__ == '__main__':
