@@ -48,3 +48,33 @@ class API(object):
         except:
             logger.error('exc occur. username: %s', username, exc_info=True)
             return None
+
+    def verify_pin(self, username, source, pin):
+        url = urlparse.urljoin(self.base_url, constants.URL_PIN_VERIFY)
+
+        data = dict(
+            username=username,
+            source=source,
+            pin=pin,
+        )
+
+        str_data = json.dumps(data)
+        sign = hashlib.md5('|'.join([self.secret, str_data])).hexdigest()
+
+        try:
+            rsp = requests.get(url, params=dict(
+                data=str_data,
+                sign=sign,
+            ), timeout=self.timeout)
+
+            jdata = rsp.json()
+
+            if jdata['ret'] == 0:
+                return True
+            else:
+                logger.error('rsp.ret invalid. username: %s, rsp: %s', username, jdata)
+                return False
+
+        except:
+            logger.error('exc occur. username: %s', username, exc_info=True)
+            return False

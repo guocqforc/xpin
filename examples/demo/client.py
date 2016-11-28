@@ -21,7 +21,13 @@ logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
 
-
 client = API(config.CLIENT_SECRET, 'http://127.0.0.1:5000/')
 
-print client.create_pin('dantezhu', 1)
+username = 'dantezhu'
+source = 1
+
+pin = client.create_pin(username, source)
+
+print 'pin:', pin
+
+print client.verify_pin(username, source, pin)

@@ -145,7 +145,7 @@ def verify_pin():
             ret=constants.RET_PIN_VALID
         )
 
-    if pin.expire_time < datetime.datetime.utcnow():
+    if pin.expire_time and pin.expire_time < datetime.datetime.utcnow():
         return jsonify(
             ret=constants.RET_PIN_EXPIRED,
         )
