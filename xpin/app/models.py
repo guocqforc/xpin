@@ -68,11 +68,11 @@ class User(db.Model):
         return u'<%s %s>' % (type(self).__name__, self.username)
 
 
-class UserPin(db.Model):
+class Pin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     source = db.Column(db.Integer, nullable=False)
-    pin = db.Column(db.String(255), nullable=False)
+    code = db.Column(db.String(255), nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     user = db.relationship('User', backref=db.backref('pins', order_by=db.desc(create_time)))
@@ -82,4 +82,4 @@ class UserPin(db.Model):
     )
 
     def __unicode__(self):
-        return u'<%s %s-%s-%s>' % (type(self).__name__, self.user_id, self.source, self.pin)
+        return u'<%s %s-%s-%s>' % (type(self).__name__, self.user_id, self.source, self.code)
