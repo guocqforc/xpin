@@ -22,3 +22,19 @@ config 需要配置
     SEND_CLOUD_API_USER =
     SEND_CLOUD_API_KEY =
     SEND_CLOUD_SENDER =
+
+
+启动
+
+    // 初始化数据库
+    xpin -c config.py syncdb
+
+    // 添加管理员
+    xpin -c config.py addadmin admin password
+
+    // gevent 模式
+    xpin -c config.py rungserver
+
+    // 多线程模式
+    xpin -c config.py runserver
+
