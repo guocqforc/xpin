@@ -60,6 +60,14 @@ def create_pin():
     user = User.query.filter(User.username == username).first()
 
     if not user or not user.valid:
+        logger.error('invalid user. request: %s', request)
+        return jsonify(
+            ret=constants.RET_USER_INVALID,
+        )
+
+    # 判断是否是合法的企业内部用户
+    if not g.ding.is_valid_user(user.ding_id):
+        logger.error('invalid ding user. request: %s', request)
         return jsonify(
             ret=constants.RET_USER_INVALID,
         )

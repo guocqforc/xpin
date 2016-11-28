@@ -36,6 +36,9 @@ class DingBackend(object):
     # 获取部门成员列表
     URL_PATH_USER_LIST = '/user/list'
 
+    # 最上层部门
+    TOP_DEPARTMENT = 1
+
     def __init__(self, corp_id, corp_secret, agent_id):
         self.corp_id = corp_id
         self.corp_secret = corp_secret
@@ -51,6 +54,21 @@ class DingBackend(object):
         rsp = self._send_message(full_content, self.agent_id, user_list, party_list)
 
         return rsp['errcode'] == 0
+
+    def is_valid_user(self, userid):
+        """
+        是否是合法的用户
+        :param userid:
+        :return:
+        """
+
+        jdata = self._get_department_user_list(self.TOP_DEPARTMENT)
+
+        for user in jdata['userlist']:
+            if user['userid'] == userid:
+                return True
+
+        return False
 
     def _get_token(self):
         """
