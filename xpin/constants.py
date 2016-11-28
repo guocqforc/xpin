@@ -16,6 +16,12 @@ URL_PIN_VERIFY = '/pin/verify'
 # 内部错误
 RET_INTERNAL = -1000
 
+# 参数错误
+RET_PARAMS_INVALID = 500
+
+# 签名错误
+RET_SIGN_INVALID = 600
+
 # 用户无效
 RET_USER_INVALID = 1000
 

@@ -13,6 +13,10 @@ config 需要配置
     SQLALCHEMY_DATABASE_URI = 'sqlite:///%s' % os.path.join(BASE_DIR, 'db.sqlite')
     #SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost/flask_dpl'
 
+    CLIENT_SECRET = '323'
+
+    PIN_LENGTH = 6
+
     DING_CORP_ID =
     DING_CORP_SECRET =
     DING_AGENT_ID =
