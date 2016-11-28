@@ -20,11 +20,12 @@ class API(object):
         self.base_url = base_url
         self.timeout = timeout
 
-    def create_pin(self, username):
+    def create_pin(self, username, source):
         url = urlparse.urljoin(self.base_url, constants.URL_PIN_CREATE)
 
         data = dict(
-            username=username
+            username=username,
+            source=source,
         )
 
         str_data = json.dumps(data)
