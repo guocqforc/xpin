@@ -3,8 +3,6 @@
 
 from xpin import API
 
-import config
-
 import logging
 
 LOG_FORMAT = '\n'.join((
@@ -21,10 +19,13 @@ logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
 
-client = API(config.CLIENT_SECRET, 'http://127.0.0.1:5000/')
-
 username = 'dantezhu'
 source = 1
+client_secret = '13'
+base_url = 'http://127.0.0.1:5000/'
+
+client = API(client_secret, 'http://127.0.0.1:5000/')
+
 
 pin = client.create_pin(username, source)
 
