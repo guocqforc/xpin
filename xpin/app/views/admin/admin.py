@@ -94,6 +94,8 @@ class UserView(ModelView):
 
 class PinView(ModelView):
 
+    column_default_sort = ('id', True)
+
     def __init__(self, *args, **kwargs):
         super(PinView, self).__init__(Pin, db.session, *args, **kwargs)
 
@@ -102,6 +104,8 @@ class PinView(ModelView):
 
 
 class PinLogView(ModelView):
+
+    column_default_sort = ('id', True)
 
     def __init__(self, *args, **kwargs):
         super(PinLogView, self).__init__(PinLog, db.session, *args, **kwargs)
