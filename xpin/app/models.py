@@ -108,6 +108,8 @@ class PinLog(db.Model):
     username = db.Column(db.String(255), nullable=False)
     source = db.Column(db.Integer, nullable=False)
     pin = db.Column(db.String(255), nullable=False)
+    # 所在的机器
+    host = db.Column(db.String(255))
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     def __unicode__(self):

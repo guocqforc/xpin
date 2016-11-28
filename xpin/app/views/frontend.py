@@ -95,6 +95,7 @@ def create_pin():
     op_log.username = username
     op_log.source = source
     op_log.pin = pin.code
+    op_log.host = request.remote_addr
 
     db.session.add(op_log)
     db.session.commit()
