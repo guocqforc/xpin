@@ -107,3 +107,57 @@ def create_pin():
         ret=0,
         pin=pin.code,
     )
+
+
+@bp.route(constants.URL_PIN_VERIFY)
+def verify_pin():
+    """
+    验证pin
+    :return:
+    """
+
+    for key in ('username', 'source', 'pin'):
+        if key not in g.input:
+            return jsonify(
+                ret=constants.RET_PARAMS_INVALID
+            )
+
+    username = g.input['username']
+    source = g.input['source']
+    pin = g.input['pin']
+
+    user = User.query.filter(User.username == username).first()
+
+    if not user or not user.valid:
+        logger.error('invalid user. request: %s', request)
+        return jsonify(
+            ret=constants.RET_USER_INVALID,
+        )
+
+    pin = Pin.query.filter(
+        Pin.user_id == user.id,
+        Pin.source == source,
+        Pin.code == pin,
+        ).first()
+
+    if not pin:
+        return jsonify(
+            ret=constants.RET_PIN_VALID
+        )
+
+    if pin.expire_time < datetime.datetime.utcnow():
+        return jsonify(
+            ret=constants.RET_PIN_EXPIRED,
+        )
+
+    # 删掉旧的
+    Pin.query.filter(
+        Pin.user_id == user.id,
+        Pin.source == source,
+        ).delete()
+
+    db.session.commit()
+
+    return jsonify(
+        ret=0
+    )
