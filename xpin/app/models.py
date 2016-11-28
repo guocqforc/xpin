@@ -79,7 +79,7 @@ class Pin(db.Model):
     user = db.relationship('User', backref=db.backref('pins', order_by=db.desc(create_time)))
 
     __table_args__ = (
-        UniqueConstraint('user_id', 'source', 'pin', name='_user_source_pin'),
+        UniqueConstraint('user_id', 'source', 'code', name='_user_source_code'),
     )
 
     @classmethod
