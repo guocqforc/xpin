@@ -28,14 +28,8 @@ class API(object):
             source=source,
         )
 
-        str_data = json.dumps(data)
-        sign = hashlib.md5('|'.join([self.secret, str_data])).hexdigest()
-
         try:
-            rsp = requests.get(url, params=dict(
-                data=str_data,
-                sign=sign,
-            ), timeout=self.timeout)
+            rsp = requests.get(url, params=self._make_signed_params(data), timeout=self.timeout)
 
             jdata = rsp.json()
 
@@ -58,14 +52,8 @@ class API(object):
             pin=pin,
         )
 
-        str_data = json.dumps(data)
-        sign = hashlib.md5('|'.join([self.secret, str_data])).hexdigest()
-
         try:
-            rsp = requests.get(url, params=dict(
-                data=str_data,
-                sign=sign,
-            ), timeout=self.timeout)
+            rsp = requests.post(url, data=self._make_signed_params(data), timeout=self.timeout)
 
             jdata = rsp.json()
 
@@ -78,3 +66,16 @@ class API(object):
         except:
             logger.error('exc occur. username: %s', username, exc_info=True)
             return False
+
+    def _make_signed_params(self, data):
+        """
+        生成带签名的params
+        :param data:
+        :return:
+        """
+        str_data = json.dumps(data)
+        sign = hashlib.md5('|'.join([self.secret, str_data])).hexdigest()
+        return dict(
+            data=str_data,
+            sign=sign,
+        )
