@@ -91,13 +91,14 @@ def create_pin():
     db.session.add(pin)
     db.session.commit()
 
-    op_log = PinLog()
-    op_log.username = username
-    op_log.source = source
-    op_log.pin = pin.code
-    op_log.host = request.remote_addr
+    pin_log = PinLog()
+    pin_log.username = username
+    pin_log.source = source
+    pin_log.pin = pin.code
+    pin_log.host = request.remote_addr
+    pin_log.expire_time = pin.expire_time
 
-    db.session.add(op_log)
+    db.session.add(pin_log)
     db.session.commit()
 
     msg_title = current_app.config['MSG_TITLE']

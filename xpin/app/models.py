@@ -111,6 +111,7 @@ class PinLog(db.Model):
     # 所在的机器
     host = db.Column(db.String(255))
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    expire_time = db.Column(db.DateTime)
 
     def __unicode__(self):
         return u'<%s %s-%s-%s>' % (type(self).__name__, self.username, self.source, self.pin)
