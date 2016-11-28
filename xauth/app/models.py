@@ -20,18 +20,17 @@ class ListType(TypeDecorator):
         return re.split(r'\s*,\s*', value or '')
 
 
-class AbstractBaseUser(db.Model):
+class AdminUser(db.Model):
     """
     user基类
     """
-
-    __abstract__ = True
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     login_time = db.Column(db.DateTime)
+    roles = db.Column(ListType)
 
     def __unicode__(self):
         return u'%s' % self.username
@@ -55,11 +54,11 @@ class AbstractBaseUser(db.Model):
             return None
 
 
-class AdminUser(AbstractBaseUser):
-    __tablename__ = 'admin_user'
-
-    roles = db.Column(ListType)
-
-
-class User(AbstractBaseUser, UserMixin):
+class User(UserMixin):
     __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    login_time = db.Column(db.DateTime)
+    roles = db.Column(ListType)

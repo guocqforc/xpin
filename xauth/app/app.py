@@ -4,7 +4,7 @@ from importlib import import_module
 from flask import Flask
 from flask import request
 
-from extensions import db, admin, login_manager
+from extensions import db, admin
 import models
 import views.admin
 
@@ -39,12 +39,6 @@ def configure_extensions(app):
     db.init_app(app)
 
     admin.init_app(app)
-
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(userid):
-        return models.User.query.get(userid)
 
 
 def configure_context_processors(app):
