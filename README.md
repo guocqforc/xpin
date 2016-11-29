@@ -34,3 +34,8 @@ config 需要配置
 
     // 多线程模式启动
     xpin -c config.py runserver --threaded
+
+
+注意:
+
+    由于强依赖钉钉，务必要保证员工在公司顶部层级下，否则验证是否为员工会失败。

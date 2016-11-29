@@ -64,9 +64,9 @@ def create_pin():
         return jsonify(
             ret=constants.RET_USER_INVALID,
         )
-
+    ding_user = g.ding.get_user(user.ding_id)
     # 判断是否是合法的企业内部用户
-    if not g.ding.get_user(user.ding_id):
+    if not ding_user:
         logger.error('invalid ding user. request: %s', request)
         return jsonify(
             ret=constants.RET_USER_INVALID,
@@ -111,8 +111,8 @@ def create_pin():
 
     g.ding.emit(msg_title, msg_content, user_list=[user.ding_id])
 
-    if g.send_cloud and user.mail:
-        g.send_cloud.emit(msg_title, msg_content, [user.mail])
+    if g.send_cloud and ding_user.get('email'):
+        g.send_cloud.emit(msg_title, msg_content, [ding_user.get('email')])
 
     return jsonify(
         ret=0,

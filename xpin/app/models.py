@@ -62,7 +62,6 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
     ding_id = db.Column(db.String(255), nullable=False)
-    mail = db.Column(db.String(255), nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     valid = db.Column(db.Boolean, default=True)
 
