@@ -76,6 +76,7 @@ class Pin(db.Model):
     code = db.Column(db.String(255), nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     expire_time = db.Column(db.DateTime)
+    remain_try_times = db.Column(db.Integer)
 
     user = db.relationship('User', backref=db.backref('pins', order_by=db.desc(create_time)))
 

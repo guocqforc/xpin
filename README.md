@@ -15,6 +15,10 @@ config 需要配置
 
     CLIENT_SECRET = '323'
 
+    PIN_LENGTH = 6
+
+    PIN_MAX_TRY_TIMES = 5
+
     DING_CORP_ID =
     DING_CORP_SECRET =
     DING_AGENT_ID =

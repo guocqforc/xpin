@@ -84,6 +84,7 @@ def create_pin():
     pin.user_id = user.id
     pin.source = source
     pin.code = Pin.create_code(current_app.config['PIN_LENGTH'])
+    pin.remain_try_times = current_app.config['PIN_MAX_TRY_TIMES']
 
     if current_app.config['PIN_MAX_AGE']:
         pin.expire_time = datetime.datetime.now() + datetime.timedelta(seconds=current_app.config['PIN_MAX_AGE'])
@@ -109,10 +110,12 @@ def create_pin():
         pin=pin.code,
     )
 
-    g.ding.emit(msg_title, msg_content, user_list=[user.ding_id])
+    if not g.ding.emit(msg_title, msg_content, user_list=[user.ding_id]):
+        logger.error('ding emit fail. request: %s', request)
 
     if g.send_cloud and ding_user.get('email'):
-        g.send_cloud.emit(msg_title, msg_content, [ding_user.get('email')])
+        if not g.send_cloud.emit(msg_title, msg_content, [ding_user.get('email')]):
+            logger.error('send_cloud emit fail. request: %s', request)
 
     return jsonify(
         ret=0,
@@ -148,10 +151,21 @@ def verify_pin():
     pin = Pin.query.filter(
         Pin.user_id == user.id,
         Pin.source == source,
-        Pin.code == pin,
         ).first()
 
     if not pin:
+        return jsonify(
+            ret=constants.RET_PIN_VALID
+        )
+
+    if pin.code != pin:
+        if pin.remain_try_times is not None:
+            pin.remain_try_times -= 1
+            if pin.remain_try_times <= 0:
+                # 超过次数，删掉pin
+                db.session.delete(pin)
+                db.session.commit()
+
         return jsonify(
             ret=constants.RET_PIN_VALID
         )
