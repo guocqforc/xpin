@@ -64,6 +64,7 @@ class User(db.Model):
     ding_id = db.Column(db.String(255), nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     valid = db.Column(db.Boolean, default=True)
+    alias = db.Column(db.String(255))
 
     def __unicode__(self):
         return u'<%s %s>' % (type(self).__name__, self.username)
