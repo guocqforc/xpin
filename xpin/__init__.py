@@ -1,4 +1,4 @@
 
-__version__ = '0.1.51'
+__version__ = '0.1.55'
 
 from .api.api import API
