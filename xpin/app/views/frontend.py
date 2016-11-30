@@ -164,7 +164,10 @@ def verify_pin():
             if pin.remain_try_times <= 0:
                 # 超过次数，删掉pin
                 db.session.delete(pin)
-                db.session.commit()
+            else:
+                db.session.add(pin)
+
+            db.session.commit()
 
         return jsonify(
             ret=constants.RET_PIN_VALID
