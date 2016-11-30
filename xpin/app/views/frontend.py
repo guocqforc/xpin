@@ -138,7 +138,7 @@ def verify_pin():
 
     username = g.input['username']
     source = g.input['source']
-    pin = g.input['pin']
+    pin_code = g.input['pin']
 
     user = User.query.filter(User.username == username).first()
 
@@ -158,7 +158,7 @@ def verify_pin():
             ret=constants.RET_PIN_VALID
         )
 
-    if pin.code != pin:
+    if pin.code != pin_code:
         if pin.remain_try_times is not None:
             pin.remain_try_times -= 1
             if pin.remain_try_times <= 0:
