@@ -85,6 +85,9 @@ class AdminUserView(ModelView):
 
 class UserView(ModelView):
 
+    column_searchable_list = ['username', 'ding_id', 'alias']
+    column_filters = ['valid']
+
     def __init__(self, *args, **kwargs):
         super(UserView, self).__init__(User, db.session, *args, **kwargs)
 
@@ -95,6 +98,7 @@ class UserView(ModelView):
 class PinView(ModelView):
 
     column_default_sort = ('id', True)
+    column_searchable_list = ['user.username', 'source', 'code']
 
     def __init__(self, *args, **kwargs):
         super(PinView, self).__init__(Pin, db.session, *args, **kwargs)
@@ -106,6 +110,7 @@ class PinView(ModelView):
 class PinLogView(ModelView):
 
     column_default_sort = ('id', True)
+    column_searchable_list = ['username', 'source', 'pin', 'address']
 
     def __init__(self, *args, **kwargs):
         super(PinLogView, self).__init__(PinLog, db.session, *args, **kwargs)
