@@ -50,6 +50,6 @@ CONFIG = dict(
     PIN_MAX_TRY_TIMES=None,
 
     MSG_TITLE='PIN code',
-    MSG_CONTENT_TPL='{username}#{source}@{address} is applying for PIN. PIN is {pin}'
+    MSG_CONTENT_TPL='PIN is {pin}. {username}#{source}@{address} is applying for PIN.'
 )
 
