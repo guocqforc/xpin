@@ -75,6 +75,8 @@ class Pin(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     source = db.Column(db.String(255), nullable=False)
     code = db.Column(db.String(255), nullable=False)
+    # 所在的机器
+    address = db.Column(db.String(255))
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     expire_time = db.Column(db.DateTime)
     remain_try_times = db.Column(db.Integer)
@@ -109,7 +111,6 @@ class PinLog(db.Model):
     username = db.Column(db.String(255), nullable=False)
     source = db.Column(db.String(255), nullable=False)
     pin = db.Column(db.String(255), nullable=False)
-    # 所在的机器
     address = db.Column(db.String(255))
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     expire_time = db.Column(db.DateTime)

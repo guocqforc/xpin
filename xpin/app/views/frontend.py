@@ -84,6 +84,7 @@ def create_pin():
     pin.user_id = user.id
     pin.source = source
     pin.code = Pin.create_code(current_app.config['PIN_LENGTH'])
+    pin.address = request.remote_addr
     pin.remain_try_times = current_app.config['PIN_MAX_TRY_TIMES']
 
     if current_app.config['PIN_MAX_AGE']:
@@ -92,21 +93,22 @@ def create_pin():
     db.session.add(pin)
     db.session.commit()
 
-    pin_log = PinLog()
-    pin_log.username = username
-    pin_log.source = source
-    pin_log.pin = pin.code
-    pin_log.address = request.remote_addr
-    pin_log.expire_time = pin.expire_time
+    if current_app.config['PIN_LOG']:
+        pin_log = PinLog()
+        pin_log.username = username
+        pin_log.source = source
+        pin_log.pin = pin.code
+        pin_log.address = pin.address
+        pin_log.expire_time = pin.expire_time
 
-    db.session.add(pin_log)
-    db.session.commit()
+        db.session.add(pin_log)
+        db.session.commit()
 
     msg_title = current_app.config['MSG_TITLE']
     msg_content = current_app.config['MSG_CONTENT_TPL'].format(
         username=username,
         source=source,
-        address=request.remote_addr,
+        address=pin.address,
         pin=pin.code,
     )
 

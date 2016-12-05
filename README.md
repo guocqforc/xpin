@@ -18,6 +18,7 @@ config 需要配置
     PIN_LENGTH = 6
     PIN_MAX_AGE = 300
     PIN_MAX_TRY_TIMES = 5
+    PIN_LOG = False
 
     DING_CORP_ID =
     DING_CORP_SECRET =
