@@ -12,6 +12,10 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///%s' % os.path.join(BASE_DIR, 'db.sqlite')
 
 CLIENT_SECRET = '123'
 
+PIN_LENGTH = 6
+PIN_MAX_AGE = 300
+PIN_MAX_TRY_TIMES = 5
+
 DING_CORP_ID = ''
 DING_CORP_SECRET = ''
 DING_AGENT_ID = ''
