@@ -35,6 +35,8 @@ class DingBackend(object):
     URL_PATH_DEPARTMENT_LIST = '/department/list'
     # 获取部门成员列表
     URL_PATH_USER_LIST = '/user/list'
+    # 用户员工资料
+    URL_PATH_GET_USER = '/user/get'
 
     # 最上层部门
     TOP_DEPARTMENT = 1
@@ -61,14 +63,27 @@ class DingBackend(object):
         :param userid:
         :return:
         """
+        access_token = self._get_token()['access_token']
 
-        jdata = self._get_department_user_list(self.TOP_DEPARTMENT)
+        url = '%s://%s%s' % (self.SCHEMA, self.HOST, self.URL_PATH_GET_USER)
 
-        for user in jdata['userlist']:
-            if user['userid'] == userid:
-                return user
+        try:
+            jdata = requests.get(
+                url,
+                params=dict(
+                    access_token=access_token,
+                    userid=userid,
+                ),
+                headers=self.HEADERS,
+                verify=False,
+            ).json()
 
-        return None
+            if jdata['errcode'] == 0:
+                return jdata
+            else:
+                return None
+        except:
+            return None
 
     def _get_token(self):
         """
