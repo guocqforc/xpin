@@ -84,7 +84,11 @@ def create_pin():
     pin.user_id = user.id
     pin.source = source
     pin.code = Pin.create_code(current_app.config['PIN_LENGTH'])
-    pin.address = request.remote_addr
+    # X_REAL_IP 是解决有nginx代理的情况
+    # nginx 配置:
+    # proxy_set_header X-Real-IP $remote_addr;
+    # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    pin.address = request.headers.get('X_REAL_IP') or request.remote_addr
     pin.remain_try_times = current_app.config['PIN_MAX_TRY_TIMES']
 
     if current_app.config['PIN_MAX_AGE']:
