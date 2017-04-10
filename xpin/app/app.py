@@ -68,6 +68,7 @@ def configure_handlers(app):
         """
         from .backends.ding import DingBackend
         from .backends.sendcloud import SendCloudBackend
+        from .backends.mail import MailBackend
 
         g.ding = DingBackend(
             app.config['DING_CORP_ID'],
@@ -83,6 +84,11 @@ def configure_handlers(app):
             )
         else:
             g.send_cloud = None
+
+        if 'MAIL_SEND_LIST' in app.config:
+            g.mail = MailBackend(app.config['MAIL_SEND_LIST'])
+        else:
+            g.mail = None
 
 
 def configure_views(app):

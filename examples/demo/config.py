@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import smtplib
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -25,3 +26,16 @@ DING_AGENT_ID = ''
 SEND_CLOUD_API_USER = ''
 SEND_CLOUD_API_KEY = ''
 SEND_CLOUD_SENDER = ''
+
+# 可选
+MAIL_SEND_LIST = [
+    {
+        'host': 'smtp.qq.com',
+        'port': smtplib.SMTP_PORT,  # smtplib.SMTP_SSL_PORT
+        'username': 'xxx@qq.com',
+        'password': 'xxxx',
+        'sender': 'xxx@qq.com',
+        'use_ssl': False,
+        'use_tls': False,
+    }
+]
