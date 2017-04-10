@@ -28,7 +28,7 @@ SEND_CLOUD_API_KEY = ''
 SEND_CLOUD_SENDER = ''
 
 # 可选
-MAIL_SEND_LIST = [
+MAIL_SENDER_LIST = [
     {
         'host': 'smtp.qq.com',
         'port': smtplib.SMTP_PORT,  # smtplib.SMTP_SSL_PORT

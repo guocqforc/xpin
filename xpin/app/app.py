@@ -85,8 +85,8 @@ def configure_handlers(app):
         else:
             g.send_cloud = None
 
-        if 'MAIL_SEND_LIST' in app.config:
-            g.mail = MailBackend(app.config['MAIL_SEND_LIST'])
+        if 'MAIL_SENDER_LIST' in app.config:
+            g.mail = MailBackend(app.config['MAIL_SENDER_LIST'])
         else:
             g.mail = None
 
