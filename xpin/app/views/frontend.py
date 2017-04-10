@@ -119,9 +119,15 @@ def create_pin():
     if not g.ding.emit(msg_title, msg_content, user_list=[user.ding_id]):
         logger.error('ding emit fail. request: %s', request)
 
-    if g.send_cloud and ding_user.get('email'):
-        if not g.send_cloud.emit(msg_title, msg_content, [ding_user.get('email')]):
-            logger.error('send_cloud emit fail. request: %s', request)
+    user_email = ding_user.get('email')
+    if user_email:
+        if g.send_cloud:
+            if not g.send_cloud.emit(msg_title, msg_content, [user_email]):
+                logger.error('send_cloud emit fail. request: %s', request)
+
+        if g.mail:
+            if not g.mail.emit(msg_title, msg_content, [user_email]):
+                logger.error('mail emit fail. request: %s', request)
 
     return jsonify(
         ret=0,
